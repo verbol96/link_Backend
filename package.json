@@ -1,0 +1,20 @@
+{
+  "name": "link_backend",
+  "version": "1.0.0",
+  "description": "this is backend of the table",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verbol96/link_Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/verbol96/link_Backend/issues"
+  },
+  "homepage": "https://github.com/verbol96/link_Backend#readme"
+}
