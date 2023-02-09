@@ -1,4 +1,4 @@
-const sequelize = require('../db')
+/*const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
@@ -25,4 +25,4 @@ Basket.belongsTo(User)
 Product.hasMany(Basket)
 Basket.belongsTo(Product) 
 
-module.exports = {User, Product, Basket}
+module.exports = {User, Product, Basket}*/

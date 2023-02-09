@@ -1,4 +1,4 @@
-/*const {Product} = require('../models/models')
+const {Product} = require('../models/models')
 
 
 class productController{
@@ -15,4 +15,4 @@ class productController{
     }
 }
 
-module.exports = new productController()*/
+module.exports = new productController()
