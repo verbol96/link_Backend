@@ -1,4 +1,4 @@
-const {Product} = require('../models/models')
+/*const {Product} = require('../models/models')
 
 
 class productController{
@@ -13,12 +13,6 @@ class productController{
         if(products.length===0) return res.json("нету продуктов")
         return res.json(products)
     }
-
-    async getOne(req,res){
-        const {id} = req.body
-        const product = await Product.findOne({where:{id: id}})
-        return res.json(product)
-    }
 }
 
-module.exports = new productController()
+module.exports = new productController()*/
