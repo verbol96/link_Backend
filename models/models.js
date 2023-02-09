@@ -3,26 +3,50 @@ const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    login: {type: DataTypes.STRING, unique: true},
+    phone: {type: DataTypes.STRING, unique: true},
+    name: {type: DataTypes.STRING},
+    nikname: {type: DataTypes.STRING},
+    typePost: {type: DataTypes.STRING},
+    firstClass: {type: DataTypes.BOOLEAN, defaultValue: false},
+    postCode: {type: DataTypes.STRING},
+    city: {type: DataTypes.STRING},
+    adress: {type: DataTypes.STRING},
+    oblast: {type: DataTypes.STRING},
+    raion: {type: DataTypes.STRING},
+
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
 
-const Product = sequelize.define('product', {
+const Order = sequelize.define('order', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING},
-    description: {type: DataTypes.STRING },
-    price: {type: DataTypes.INTEGER}
+    codeInside: {type: DataTypes.STRING},
+    codeOutside: {type: DataTypes.STRING },
+    price: {type: DataTypes.INTEGER},
+    other: {type: DataTypes.STRING }, 
+    status: {type: DataTypes.INTEGER}
 })
 
-const Basket = sequelize.define('basket', {
+const Photo = sequelize.define('photo', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    type: {type: DataTypes.STRING},
+    format: {type: DataTypes.STRING},
+    amount: {type: DataTypes.INTEGER},
+    paper: {type: DataTypes.STRING}
 })
 
-User.hasMany(Basket)
-Basket.belongsTo(User)
+const Status = sequelize.define('status', {
+    id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    step:{type: DataTypes.INTEGER}
+})
 
-Product.hasMany(Basket)
-Basket.belongsTo(Product) 
+User.hasMany(Order)
+Order.belongsTo(User)
 
-module.exports = {User, Product, Basket}
+Order.hasMany(Photo)
+Photo.belongsTo(Order) 
+
+Order.hasMany(Status)
+Status.belongsTo(Order) 
+
+module.exports = {User, Order, Photo, Status}
