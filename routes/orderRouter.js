@@ -6,5 +6,6 @@ router.post('/addOrder',  orderController.addOrder)
 router.get('/getAll', orderController.getAll)
 router.put('/updateStatus/:id', orderController.updateStatus)
 router.put('/updateOrder/:id', orderController.updateOrder)
+router.delete('/deleteOrder/:id', orderController.deleteOrder)
 
 module.exports = router

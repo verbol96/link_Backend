@@ -68,6 +68,13 @@ class orderController{
         return res.json(id)
     }
 
+    async deleteOrder(req,res){
+        const id = req.params.id
+        const order = await Order.destroy({where: {id: id}})
+        await Status.destroy({where: {orderId: id}})
+        return res.json(order)
+    }
+
     
     
 }
