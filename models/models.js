@@ -22,7 +22,7 @@ const Order = sequelize.define('order', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     codeInside: {type: DataTypes.STRING},
     codeOutside: {type: DataTypes.STRING },
-    price: {type: DataTypes.INTEGER},
+    price: {type: DataTypes.STRING},
     other: {type: DataTypes.STRING }, 
     status: {type: DataTypes.INTEGER}
 })
