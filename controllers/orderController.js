@@ -3,6 +3,7 @@ const {User, Order, Photo, Status} = require('../models/models')
 
 class orderController{
     async addOrder(req,res) {
+        const a = req.body
         const {phone, name, nikname, typePost, firstClass, postCode, city, adress, oblast, raion, codeInside, codeOutside, price, other, photo} = req.body
         let user = await User.findOne({where: {phone: phone}})
         
@@ -23,7 +24,7 @@ class orderController{
             Photo.create({type: el.type, format: el.format, amount: el.amount, paper: el. paper, orderId: order.id }))
 
         await Status.create({step: 1, orderId: order.id})
-        return res.json(user)
+        return res.json({order, a})
     }
 
     async getAll(req,res){
