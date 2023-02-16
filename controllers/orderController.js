@@ -101,10 +101,22 @@ class orderController{
     async setCopyDB(req, res){
         const {user, order, photo} = req.body
 
-       
+        await user.map(el=>{
+            const {id, phone, name, nikname, typePost, firstClass, postCode, city, adress, oblas, raion, createdAt, updatedAt} = el
+            const user1 =  User.create({id, phone, name, nikname, createdAt, updatedAt})
+            
+        })
+        await user.map(el=>{
+            const {id, phone, name, nikname, typePost, firstClass, postCode, city, adress, oblast, raion, createdAt, updatedAt} = el
+            const adres =  Adress.create({id, typePost, firstClass, postCode, city, adress, oblast, raion, userId: id})
+        })
+        await order.map(el=>{
+            const {id, codeInside, codeOutside, price, other, status, createdAt, updatedAt, userId} = el
+            const order1 =  Order.create({id, codeInside, codeOutside, price, other, status, createdAt, updatedAt, userId, adressId: userId})
+        })  
         await photo.map(el=>{
             const {id, type, format, amount, paper, status, createdAt, updatedAt, orderId} = el
-            const photo1 =  Photo.create({id, type, format, amount, paper, status, createdAt, updatedAt, orderId})
+            const order1 =  Order.create({id, codeInside, codeOutside, price, other, status, createdAt, updatedAt, userId, adressId: userId})
         })  
         
         return res.json(user)
