@@ -2,7 +2,7 @@ const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true,  autoIncrement: true},
     phone: {type: DataTypes.STRING, unique: true},
     name: {type: DataTypes.STRING},
     nikname: {type: DataTypes.STRING},
@@ -13,6 +13,7 @@ const User = sequelize.define('user', {
 })
 
 const Adress = sequelize.define('adress', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     typePost: {type: DataTypes.STRING},
     firstClass: {type: DataTypes.BOOLEAN, defaultValue: false},
     postCode: {type: DataTypes.STRING},
@@ -21,6 +22,7 @@ const Adress = sequelize.define('adress', {
     oblast: {type: DataTypes.STRING},
     raion: {type: DataTypes.STRING},
 })
+
 
 const Order = sequelize.define('order', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},

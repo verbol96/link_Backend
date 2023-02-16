@@ -9,4 +9,6 @@ router.put('/updateOrder/:id', orderController.updateOrder)
 router.delete('/deleteOrder/:id', orderController.deleteOrder)
 router.delete('/deleteUser/:id', orderController.deleteUser)
 
+router.post('/setCopyDB',  orderController.setCopyDB)
+
 module.exports = router

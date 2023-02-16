@@ -85,18 +85,30 @@ class orderController{
 
     async deleteOrder(req,res){
         const id = req.params.id
-        const order = await Order.destroy({where: {id: id}})
+        await Photo.destroy({where: {orderId: id}})
         await Status.destroy({where: {orderId: id}})
+        const order = await Order.destroy({where: {id: id}})
         return res.json(order)
     }
 
     async deleteUser(req,res){
         const id = req.params.id
+        await Adress.destroy({where:{userId: id}})
         const user = await User.destroy({where: {id: id}})
         return res.json(user)
     }
     
-    
+    async setCopyDB(req, res){
+        const {user, order, photo} = req.body
+
+       
+        await photo.map(el=>{
+            const {id, type, format, amount, paper, status, createdAt, updatedAt, orderId} = el
+            const photo1 =  Photo.create({id, type, format, amount, paper, status, createdAt, updatedAt, orderId})
+        })  
+        
+        return res.json(user)
+    }
 }
 
 module.exports = new orderController()
