@@ -1,37 +1,31 @@
-const {User, Order, Photo, Status} = require('../models/models')
+const {User, Order, Adress, Photo, Status} = require('../models/models')
 
 
 class orderController{
     async addOrder(req,res) {
-        const a = req.body
         const {phone, name, nikname, typePost, firstClass, postCode, city, adress, oblast, raion, codeInside, codeOutside, price, other, photo} = req.body
         let user = await User.findOne({where: {phone: phone}})
         
         if(user===null){
-            user = await User.create({phone, name, nikname, typePost, firstClass, postCode, city, adress, oblast, raion})
-        }else{
-            await User.update(
-                {
-                    phone: phone, name: name, nikname: nikname, typePost: typePost, firstClass: firstClass, postCode:postCode,
-                    city: city, adress:adress, oblast: oblast, raion: raion
-                },
-                {where:{id: user.id}}
-            )
+            user = await User.create({phone, name, nikname})
         }
         
-        const order = await Order.create({codeInside, codeOutside, price, other, userId: user.id, status: 1})
+        const adressNew = await Adress.create({typePost, firstClass, postCode, city, adress, oblast, raion, userId: user.id})
+        const order = await Order.create({codeInside, codeOutside, price, other, userId: user.id, adressId: adressNew.id, status: 1})
         await photo.map(el=>
             Photo.create({type: el.type, format: el.format, amount: el.amount, paper: el. paper, orderId: order.id }))
 
         await Status.create({step: 1, orderId: order.id})
-        return res.json({order, a})
+        return res.json({order})
     }
 
     async getAll(req,res){
         const order = await Order.findAll()
         const user = await User.findAll()
         const photo = await Photo.findAll()
-        return res.json({user, order, photo})
+        const adress = await Adress.findAll()
+        const status = await Status.findAll()
+        return res.json({user, order, adress, photo, status})
     }
 
     async updateStatus(req,res){
@@ -43,8 +37,7 @@ class orderController{
 
     async updateOrder(req,res){
         const id = req.params.id
-        const {phone, name, nikname, typePost, firstClass, postCode, city, adress, oblast, raion, codeInside, codeOutside, price, other, photo, userId} = req.body
-
+        const {phone, name, nikname, typePost, firstClass, postCode, city, adress, oblast, raion, codeInside, codeOutside, price, other, photo, userId, adressId} = req.body
 
         await Order.update(
             {
@@ -53,12 +46,33 @@ class orderController{
             {where:{id: id}}
         )
        
-        await User.update(
+        const user = await User.findOne({where: {phone: phone}})
+        if(!user){
+            await User.update(
+                {
+                    phone: phone, name: name, nikname: nikname
+                },
+                {where:{id: userId}}
+            )}else{
+                await Order.update(
+                    {
+                        userId: user.id
+                    },
+                    {where:{id: id}}
+                )
+                await User.update(
+                    {
+                        phone: phone, name: name, nikname: nikname
+                    },
+                    {where:{id: user.id}}
+                )
+            }
+
+        await Adress.update(
             {
-                phone: phone, name: name, nikname: nikname, typePost: typePost, firstClass: firstClass, postCode:postCode,
-                city: city, adress:adress, oblast: oblast, raion: raion
+                typePost: typePost, firstClass: firstClass, postCode:postCode,city: city, adress:adress, oblast: oblast, raion: raion
             },
-            {where:{id: userId}}
+            {where:{id: adressId}}
         )
 
         await Photo.destroy({where: {orderId: id}})
@@ -76,6 +90,11 @@ class orderController{
         return res.json(order)
     }
 
+    async deleteUser(req,res){
+        const id = req.params.id
+        const user = await User.destroy({where: {id: id}})
+        return res.json(user)
+    }
     
     
 }

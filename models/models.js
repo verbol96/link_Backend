@@ -6,6 +6,13 @@ const User = sequelize.define('user', {
     phone: {type: DataTypes.STRING, unique: true},
     name: {type: DataTypes.STRING},
     nikname: {type: DataTypes.STRING},
+    
+    email: {type: DataTypes.STRING},
+    password: {type: DataTypes.STRING},
+    role: {type: DataTypes.STRING, defaultValue: "USER"}
+})
+
+const Adress = sequelize.define('adress', {
     typePost: {type: DataTypes.STRING},
     firstClass: {type: DataTypes.BOOLEAN, defaultValue: false},
     postCode: {type: DataTypes.STRING},
@@ -13,9 +20,6 @@ const User = sequelize.define('user', {
     adress: {type: DataTypes.STRING},
     oblast: {type: DataTypes.STRING},
     raion: {type: DataTypes.STRING},
-
-    password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
 
 const Order = sequelize.define('order', {
@@ -41,12 +45,16 @@ const Status = sequelize.define('status', {
 })
 
 User.hasMany(Order)
-Order.belongsTo(User)
+User.hasMany(Adress)
 
+Order.belongsTo(User)
+Order.belongsTo(Adress)
 Order.hasMany(Photo)
+Order.hasMany(Status)
+
+Adress.hasMany(Order)
 Photo.belongsTo(Order) 
 
-Order.hasMany(Status)
 Status.belongsTo(Order) 
 
-module.exports = {User, Order, Photo, Status}
+module.exports = {User, Order, Adress, Photo, Status}
