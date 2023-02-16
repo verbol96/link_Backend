@@ -115,8 +115,8 @@ class orderController{
             const order1 =  Order.create({id, codeInside, codeOutside, price, other, status, createdAt, updatedAt, userId, adressId: userId})
         })  
         await photo.map(el=>{
-            const {id, type, format, amount, paper, status, createdAt, updatedAt, orderId} = el
-            const order1 =  Order.create({id, codeInside, codeOutside, price, other, status, createdAt, updatedAt, userId, adressId: userId})
+            const {id, type, format, amount, paper, createdAt, updatedAt, orderId} = el
+            const photo =  Photo.create({id, type, format, amount, paper, createdAt, updatedAt, orderId})
         })  
         
         return res.json(user)
