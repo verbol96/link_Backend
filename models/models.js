@@ -46,6 +46,13 @@ const Status = sequelize.define('status', {
     step:{type: DataTypes.INTEGER}
 })
 
+const Settings = sequelize.define('settings', {
+    id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title:{type: DataTypes.STRING},
+    value:{type: DataTypes.STRING},
+
+})
+
 User.hasMany(Order)
 User.hasMany(Adress)
 
@@ -59,4 +66,4 @@ Photo.belongsTo(Order)
 
 Status.belongsTo(Order) 
 
-module.exports = {User, Order, Adress, Photo, Status}
+module.exports = {User, Order, Adress, Photo, Status, Settings}

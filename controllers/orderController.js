@@ -97,7 +97,8 @@ class orderController{
         const user = await User.destroy({where: {id: id}})
         return res.json(user)
     }
-    
+
+    //для миграции БД
     async setCopyDB(req, res){
         const {user, order, photo} = req.body
 
