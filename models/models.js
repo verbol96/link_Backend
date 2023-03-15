@@ -12,6 +12,11 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
 
+const Token = sequelize.define('token', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    refreshToken:{type: DataTypes.STRING}
+})
+
 const Adress = sequelize.define('adress', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     typePost: {type: DataTypes.STRING},
@@ -66,4 +71,6 @@ Photo.belongsTo(Order)
 
 Status.belongsTo(Order) 
 
-module.exports = {User, Order, Adress, Photo, Status, Settings}
+Token.belongsTo(User)
+
+module.exports = {User, Order, Adress, Photo, Status, Settings, Token}
